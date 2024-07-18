@@ -50,13 +50,8 @@ func (currCache *Cache) reap(interval time.Duration) {
 func (currCache *Cache) readLoop(interval time.Duration) {
 	ticker := time.NewTicker(interval)
 	defer ticker.Stop()
-	lastTime := time.Now()
 	for range ticker.C {
-		elapsed := time.Since(lastTime)
-		if elapsed >= interval {
-			currCache.reap(interval)
-			lastTime = time.Now()
-		}
+		currCache.reap(interval)
 	}
 }
 
